@@ -1,0 +1,21 @@
+{
+  "name": "turkuhub-server",
+  "version": "1.0.0",
+  "description": "Second edition of Turun Bussit app's backend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bussit",
+    "turku",
+    "liikenne"
+  ],
+  "author": "Julius Rajala",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.2",
+    "hapi": "^11.1.2",
+    "path": "^0.12.7"
+  }
+}

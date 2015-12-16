@@ -16,10 +16,10 @@ class REST_tester(object):
       Choose 2 for GET with params
       Choose 3 for POST
       """
-      api_call = input(">>")
-      test_api("A")
+      api_call = raw_input(">>")
+      self.test_api("A")
 
 
 if __name__ == '__main__':
   tester = REST_tester(" for testing")
-  # tester.main()
+  tester.main()

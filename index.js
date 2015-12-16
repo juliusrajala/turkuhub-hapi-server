@@ -5,8 +5,9 @@ var path = require('path');
 var apiServer = new Hapi.Server();
 
 var settings = {
-	httpPort: process.env.PORT,
-	apiPath: '/api/path'
+	httpPort: process.env.PORT || 3000,
+	apiPath: '/api/path',
+	// httpHost: "0.0.0.0"
 }
 
 function startApi(settings){
@@ -23,9 +24,29 @@ function startApi(settings){
 		}
 	});
 
+	apiServer.route({
+		method: 'GET',
+		path: '/test/',
+		handler: function(request, reply){
+			reply("Sup?");
+		}
+	})
+	apiServer.route({
+		method: 'GET',
+		path: '/android/get/{params*}',
+		handler: function(request, reply){
+			handleLanguage(request);
+		}
+	});
+
+
 	apiServer.start(function(){
 		console.log('APIServer running at:', apiServer.info.uri);
 	});
+};
+
+function handleLanguage(params){
+	console.log("Arrived with: " + params);
 }
 
 startApi(settings);

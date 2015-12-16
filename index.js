@@ -28,6 +28,7 @@ function startApi(settings){
 		method: 'GET',
 		path: '/test/',
 		handler: function(request, reply){
+			console.log("Test GET called.");
 			reply("Sup?");
 		}
 	})
@@ -35,6 +36,7 @@ function startApi(settings){
 		method: 'GET',
 		path: '/android/get/{params*}',
 		handler: function(request, reply){
+			consloe.log("GET called with params");
 			handleLanguage(request);
 		}
 	});
@@ -46,7 +48,8 @@ function startApi(settings){
 };
 
 function handleLanguage(params){
-	console.log("Arrived with: " + params);
+	var TAG = "handleLanguage:"
+	console.log(TAG + "Arrived with: " + params);
 }
 
 startApi(settings);

@@ -26,20 +26,33 @@ function startApi(settings){
 
 	apiServer.route({
 		method: 'GET',
-		path: '/test/',
+		path: '/test',
 		handler: function(request, reply){
-			console.log("Test GET called.");
+			console.log("Request params");
+			// handleLanguage(request);
+			console.log(request.headers);
+			console.log(request.raw);
+			writeJSON(request.headers);
 			reply("Sup?");
 		}
 	})
 	apiServer.route({
 		method: 'GET',
-		path: '/android/get/{params*}',
+		path: '/android/get/{message}',
 		handler: function(request, reply){
-			consloe.log("GET called with params");
-			handleLanguage(request);
+			console.log("GET called with params");
+			handleLanguage(encodeURIComponent(request.params.message));
+			reply("You called me with: "+ request.params.message);
 		}
 	});
+
+	function writeJSON(request){
+		fs.writeFile("test/header.json", JSON.stringify(request), {flags: "w"}, function(err){
+			if(err){
+				return console.log(err);
+			}
+		});
+	};
 
 
 	apiServer.start(function(){
@@ -48,8 +61,8 @@ function startApi(settings){
 };
 
 function handleLanguage(params){
-	var TAG = "handleLanguage:"
-	console.log(TAG + "Arrived with: " + params);
+	var TAG = Date.now() + ": handleLanguage: "
+	console.log(TAG + "Arrived with: "+ params);
 }
 
 startApi(settings);

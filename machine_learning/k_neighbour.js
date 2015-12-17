@@ -8,12 +8,13 @@ var NodeList = function(k){
   this.nodes = [];
   this.k = k;
 }
-
+//Adds a node to the prototypes list.
 NodeList.prototype.add = function(node){
   this.nodes.push(node);
 }
 
 //Finds minimum and maximum values for the rooms and areas.
+//Provides a range for clearer visualization by finding the highest and lowest scores.
 NodeList.prototype.calculateRanges = function(){
   this.areas = {min: 1000000, max: 0};
   this.rooms = {min: 1000000, max: 0};
@@ -38,13 +39,15 @@ NodeList.prototype.calculateRanges = function(){
   }
 };
 
+
 NodeList.prototype.determineUnknown = function(){
   this.calculateRanges();
-
+  //Runs through the nodes in this instance of NodeList
   for(var i in this.nodes){
     if(!this.nodes[i].type){
       //Clone the nodes if the node is an unknown type.
       this.nodes[i].neighbors = [];
+
       for(var j in this.nodes){
         if(!this.nodes[j].type){
           continue;
@@ -131,7 +134,7 @@ NodeList.prototype.draw = function(canvas_id){
         ctx.fillStyle = 'blue';
         break;
       default:
-        ctx.fillStyle = '#666666';
+        ctx.fillStyle = 'yellow';
     }
     var padding = 40;
     var x_shift_pct = (width - padding)/width;
@@ -159,7 +162,7 @@ NodeList.prototype.draw = function(canvas_id){
           ctx.strokeStyle = 'blue';
           break;
         default:
-          ctx.strokeStyle = '#666666';
+          ctx.strokeStyle = 'yellow';
       }
 
       var radius = this.nodes[i].neighbors[this.k - 1].distance * width;
@@ -175,11 +178,6 @@ NodeList.prototype.draw = function(canvas_id){
   }
 };
 
-/*function populateNodeList(data){
-  for(key in data){
-    NodeList.add(Node(data[key]));
-  }
-}*/
 
 var data = [
     {rooms: 1, area: 350, type: 'apartment'},
@@ -209,8 +207,10 @@ var data = [
     {rooms: 1, area: 1300, type: 'flat'},
 ];
 
+var nodes;
+
 var run = function(){
-  nodes = new NodeList(3);
+  nodes = new NodeList(4);
   for(var i in data){
     nodes.add(new Node(data[i]));
   }

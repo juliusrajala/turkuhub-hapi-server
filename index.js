@@ -1,6 +1,7 @@
 var Hapi = require('hapi');
 var fs = require('fs');
 var path = require('path');
+var nearestNeighbor = require('./lib/algorithms/nearestNeighbor.js');
 
 var apiServer = new Hapi.Server();
 
@@ -35,7 +36,19 @@ function startApi(settings){
 			writeJSON(request.headers);
 			reply("Sup?");
 		}
-	})
+	});
+
+	//Initial machine-learning focused rest-route
+	apiServer.route({
+		method: 'GET',
+		path: '/test/{params}',
+		handler: function(request, reply){
+			console.log("Testing MA-ALG with " + request.params.params);
+			var response = compareDataSets(encodeURIComponent(request.params.params));
+			reply(response);
+		}
+	});
+
 	apiServer.route({
 		method: 'GET',
 		path: '/android/get/{message}',
@@ -63,6 +76,16 @@ function startApi(settings){
 function handleLanguage(params){
 	var TAG = Date.now() + ": handleLanguage: "
 	console.log(TAG + "Arrived with: "+ params);
+}
+
+function compareDataSets(params){
+	var neighborInstance = new nearestNeighbor();
+	console.log(neighborInstance.run(3, 700))
+	return "You called me with string " + params;
+}
+
+function findValuesFromParams(params){
+
 }
 
 startApi(settings);

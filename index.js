@@ -86,8 +86,18 @@ function compareDataSets(params){
 }
 
 function findValuesFromParams(params){
-	var re = '/rooms:/';
-	console.log(params.search(re));
+	var reRoom = '/rooms:/';
+	var reArea = '/area:/'
+	var index = params.search(reRoom);
+	if(index != -1){
+		var rooms = params[index+1];
+	}
+	index = params.search(reArea);
+	if(index != -1){
+		var area = params[index+1];
+	}
+
+	return rooms, area;
 }
 
 startApi(settings);

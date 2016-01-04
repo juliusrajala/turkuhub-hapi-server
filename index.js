@@ -80,12 +80,24 @@ function handleLanguage(params){
 
 function compareDataSets(params){
 	var neighborInstance = new nearestNeighbor();
-	console.log(neighborInstance.run(3, 700))
+	var values = findValuesFromParams(params);
+	console.log(neighborInstance.run(3, 700));
 	return "You called me with string " + params;
 }
 
 function findValuesFromParams(params){
+	var reRoom = '/rooms:/';
+	var reArea = '/area:/'
+	var index = params.search(reRoom);
+	if(index != -1){
+		var rooms = params[index+1];
+	}
+	index = params.search(reArea);
+	if(index != -1){
+		var area = params[index+1];
+	}
 
+	return rooms, area;
 }
 
 startApi(settings);

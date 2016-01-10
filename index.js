@@ -67,6 +67,10 @@ function startApi(settings){
 		});
 	};
 
+	function writeBusData(data){
+		console.log("Writing new data-file");
+		
+	};
 
 	apiServer.start(function(){
 		console.log('APIServer running at:', apiServer.info.uri);
